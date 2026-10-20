@@ -1,0 +1,59 @@
+:where(#dreams) .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+:where(#dreams) .card{position:relative;aspect-ratio:1/1.12;border-radius:18px;overflow:hidden;color:#fff;background:#222;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s ease,box-shadow .2s ease;text-align:left;border:0;padding:0;display:block;width:100%}
+:where(#dreams) .card:hover{transform:translateY(-4px)}
+:where(#dreams) .card .scene{position:absolute;inset:0}
+:where(#dreams) .card .scene svg{width:100%;height:100%}
+:where(#dreams) .card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(10,5,15,.82) 100%)}
+:where(#dreams) .card-ui{position:absolute;inset:0;z-index:1;padding:14px;display:flex;flex-direction:column}
+:where(#dreams) .top{display:flex;justify-content:space-between;align-items:flex-start}
+:where(#dreams) .badge{font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:6px;color:#fff}
+:where(#dreams) .b-planned{background:#e0457a}
+:where(#dreams) .b-wishlist{background:#6f55bd}
+:where(#dreams) .b-visited{background:#1f9a52}
+:where(#dreams) .fav{width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.9);display:grid;place-items:center;color:#4a3550}
+:where(#dreams) .fav[aria-pressed="true"]{color:#e0457a}
+:where(#dreams) .fav[aria-pressed="true"] path{fill:currentColor}
+:where(#dreams) .bottom{margin-top:auto}
+:where(#dreams) .card h3{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 2px;line-height:1.2}
+:where(#dreams) .card p{margin:0 0 10px;font-size:11.5px;line-height:1.4;opacity:.92;max-width:26ch}
+:where(#dreams) .meta{display:flex;align-items:center;gap:10px;font-size:11px}
+:where(#dreams) .meta .when{display:flex;align-items:center;gap:6px;white-space:nowrap}
+:where(#dreams) .bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.25);overflow:hidden;min-width:20px}
+:where(#dreams) .bar i{display:block;height:100%;background:#ff5d93;border-radius:3px}
+:where(#dreams) .card.is-visited .bar i{background:#34d17b}
+:where(#dreams) .pct{font-weight:600;font-variant-numeric:tabular-nums;color:#ff8db0}
+:where(#dreams) .card.is-visited .pct{color:#34d17b}
+:where(#dreams) .ring{position:relative;width:76px;height:76px;flex:none}
+:where(#dreams) .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+:where(#dreams) .ring span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:18px;font-variant-numeric:tabular-nums}
+:where(#dreams) .quote-s{font-size:11.5px;color:var(--muted);text-align:center;margin:14px 0 0}
+:where(#dreams) .cats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+:where(#dreams) .cat{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-radius:10px;padding:8px;font-size:12.5px;text-align:left}
+:where(#dreams) .cat svg{width:18px;height:18px;color:var(--pink-text);flex:none}
+:where(#dreams) .cat span.n{margin-left:auto;font-size:11px;background:var(--surface-2);border-radius:20px;min-width:26px;text-align:center;padding:1px 8px;font-variant-numeric:tabular-nums}
+:where(#dreams) .cat[aria-pressed="true"]{background:var(--pink-soft);font-weight:600}
+:where(#dreams) .next{display:flex;gap:12px;align-items:center}
+:where(#dreams) .next .thumb{width:84px;height:84px;border-radius:12px;overflow:hidden;flex:none}
+:where(#dreams) .next .thumb svg{width:100%;height:100%}
+:where(#dreams) .next b{display:block;font-size:14px;margin:4px 0}
+:where(#dreams) .next small{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:11.5px}
+:where(#dreams) .view{margin-top:14px;width:100%;border:0;border-radius:10px;background:var(--pink);color:#fff;font-weight:500;padding:10px;font-size:13px}
+:where(#dreams) .none{margin:0;color:var(--muted);font-size:12.5px}
+@media (max-width:1020px){:where(#dreams) .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+}
+@media (max-width:560px){:where(#dreams) .grid{grid-template-columns:minmax(0,1fr)}
+:where(#dreams) .card{aspect-ratio:1/.85}
+}
+@media (min-width:1600px){:where(#dreams) .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+:where(#dreams) .card .scene img,:where(#dreams) .card .scene video,:where(#dreams) .next .thumb img,:where(#dreams) .next .thumb video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+:where(#dreams) .card .vbadge{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:1;border:1.5px solid rgba(255,255,255,.8)}
+:where(#dreams) .media-field{display:flex;flex-direction:column;gap:8px;font-size:13px}
+:where(#dreams) .media-field em{font-style:normal;opacity:.7;font-size:12px}
+:where(#dreams) .media-prev{border-radius:12px;overflow:hidden;background:#000;max-height:220px}
+:where(#dreams) .media-prev img,:where(#dreams) .media-prev video{display:block;width:100%;max-height:220px;object-fit:contain}
+:where(#dreams) .media-field .hint{margin:0;font-size:12px;opacity:.75}
+:where(#dreams) .link-btn{align-self:flex-start;background:none;border:0;padding:0;color:var(--pink-text);font-size:12.5px;text-decoration:underline;cursor:pointer}

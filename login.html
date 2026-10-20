@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omar &amp; Zaam - Login</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body data-page="login">
+<div class="scene" id="scene" aria-hidden="true">
+  <svg id="sceneSvg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070716"/><stop offset=".45" stop-color="#1b1240"/><stop offset=".75" stop-color="#5a2a62"/><stop offset="1" stop-color="#e0706f"/></linearGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffd9a8" stop-opacity=".55"/><stop offset=".4" stop-color="#ff8db0" stop-opacity=".18"/><stop offset="1" stop-color="#ff8db0" stop-opacity="0"/></radialGradient>
+      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b2a60"/><stop offset="1" stop-color="#0c0820"/></linearGradient>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    </defs>
+    <rect width="1600" height="900" fill="url(#sky)"/>
+    <g id="pStars" class="par" data-d="4"></g>
+    <g id="pMoon" class="par" data-d="8">
+      <circle cx="1100" cy="300" r="260" fill="url(#halo)"/>
+      <circle cx="1100" cy="300" r="82" fill="#ffe9c9"/>
+      <circle cx="1078" cy="284" r="14" fill="#f3d3ad" opacity=".6"/><circle cx="1124" cy="322" r="10" fill="#f3d3ad" opacity=".5"/>
+    </g>
+    <g class="par" data-d="12">
+      <path d="M0 640 L170 470 L300 560 L470 400 L640 560 L800 500 L980 640 Z" fill="#2c2058"/>
+      <path d="M700 640 L900 520 L1060 590 L1230 450 L1400 580 L1600 500 L1600 640 Z" fill="#2c2058"/>
+    </g>
+    <g class="par" data-d="20">
+      <path d="M0 660 L120 560 L260 620 L420 520 L600 640 L760 600 L900 660 Z" fill="#1c1442"/>
+      <path d="M820 660 L1000 580 L1180 640 L1360 560 L1600 650 L1600 660 Z" fill="#1c1442"/>
+    </g>
+    <rect y="640" width="1600" height="260" fill="url(#lake)"/>
+    <g id="reflect" fill="#ffe9c9"></g>
+    <g class="par" data-d="30">
+      <g transform="translate(170 0)"><path d="M780 810 C860 730 960 692 1100 690 C1230 690 1320 730 1400 810 Z" fill="#0b0719"/></g>
+      <path d="M0 800 C300 760 600 790 900 770 C1200 750 1400 790 1600 770 L1600 900 L0 900 Z" fill="#070514"/>
+      <g fill="#0b0719" transform="translate(170 0)">
+        <circle cx="1034" cy="636" r="14"/><path d="M1008 700 C1008 668 1020 650 1034 648 C1048 650 1060 668 1060 700 Z"/>
+        <circle cx="1082" cy="640" r="13"/><path d="M1056 700 C1056 670 1068 654 1082 652 C1096 654 1108 670 1108 700 Z"/>
+      </g>
+      <g transform="translate(170 0)"><path d="M1058 596 C1048 586 1048 574 1056 574 c4 0 6 3 6 5 0-2 2-5 6-5 8 0 8 12-2 22z" fill="#ff7a9c" filter="url(#glow)" opacity=".9"/>
+      <path d="M1058 596 C1048 586 1048 574 1056 574 c4 0 6 3 6 5 0-2 2-5 6-5 8 0 8 12-2 22z" fill="#ffb3cd"/></g>
+    </g>
+  </svg>
+  <div class="photo" id="photo"></div>
+  <canvas id="flies"></canvas>
+  <div class="shade"></div>
+</div>
+<main class="lg">
+  <section class="lg-card" aria-labelledby="ttl">
+    <header class="brand">
+      <p class="eyebrow">WELCOME TO</p>
+      <h1 id="ttl">Omar &amp; Zaam</h1>
+      <p class="lede" id="lgLede">Log in to open our story.</p>
+    </header>
+    <div class="tabs" role="tablist" aria-label="Login or register">
+      <button type="button" role="tab" id="tabIn" aria-selected="true">Login</button>
+      <button type="button" role="tab" id="tabUp" aria-selected="false">Register</button>
+      <span class="bar" aria-hidden="true"></span>
+    </div>
+    <form id="lgForm" novalidate>
+        <label class="field" for="lgNameF" id="nameRow" hidden><span class="lab">Your name</span>
+          <span class="inp"><input id="lgNameF" type="text" autocomplete="given-name" maxlength="24" placeholder="Your name" autocapitalize="none" spellcheck="false"></span></label>
+        <label class="field" for="lgId" id="idRow"><span class="lab">Gmail or username</span>
+          <span class="inp"><input id="lgId" type="text" autocomplete="username"  placeholder="you@gmail.com or username" autocapitalize="none" spellcheck="false"></span></label>
+        <label class="field" for="lgUser" id="userRow" hidden><span class="lab">Username</span>
+          <span class="inp"><input id="lgUser" type="text" autocomplete="username" maxlength="20" placeholder="e.g. omar_love" autocapitalize="none" spellcheck="false"></span></label>
+        <label class="field" for="lgEmail" id="emailRow" hidden><span class="lab">Gmail <em>(optional if you chose a username)</em></span>
+          <span class="inp"><input id="lgEmail" type="email" autocomplete="email"  placeholder="you@gmail.com" autocapitalize="none" spellcheck="false"></span></label>
+        <label class="field" for="lgPass"><span class="lab">Password</span>
+          <span class="inp"><input id="lgPass" type="password" autocomplete="current-password" required  placeholder="At least 6 characters" autocapitalize="none" spellcheck="false"><button type="button" class="eye" data-for="lgPass" aria-label="Show password"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c5 0 9 4.500 10 7-1 2.500-5 7-10 7S3 14.500 2 12c1-2.500 5-7 10-7zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg></button></span></label>
+        <label class="field" for="lgPass2" id="pass2Row" hidden><span class="lab">Confirm password</span>
+          <span class="inp"><input id="lgPass2" type="password" autocomplete="new-password"  placeholder="Type it again" autocapitalize="none" spellcheck="false"><button type="button" class="eye" data-for="lgPass2" aria-label="Show password"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5c5 0 9 4.500 10 7-1 2.500-5 7-10 7S3 14.500 2 12c1-2.500 5-7 10-7zm0 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg></button></span></label>
+        <label class="field" for="lgCode" id="codeRow" hidden><span class="lab">Reset code <em>(the secret code from the server settings)</em></span>
+          <span class="inp"><input id="lgCode" type="password" autocomplete="one-time-code" placeholder="Reset code" autocapitalize="none" spellcheck="false"></span></label>
+        <p class="err" id="lgErr" role="alert" hidden></p>
+        <p class="okmsg" id="lgOk" role="status" hidden></p>
+        <button class="go" type="submit" id="lgGo">Login <span aria-hidden="true">&#9829;</span></button>
+    </form>
+    <div class="alts">
+      <button type="button" class="linkb" id="forgotBtn">Forgot password?</button>
+      <button type="button" class="linkb" id="codeBtn" hidden>I have a reset code</button>
+      <button type="button" class="linkb" id="backBtn" hidden>Back to login</button>
+    </div>
+    <p class="note">Your account is saved on our server, so you can log in from any phone or computer. Passwords are stored hashed, never as plain text.</p>
+  </section>
+  <div class="bgtools">
+    <label class="bgbtn" for="bgFile">Use our photo as background<input id="bgFile" type="file" accept="image/*" hidden></label>
+    <button type="button" class="bgbtn" id="bgReset" hidden>Back to the night scene</button>
+  </div>
+</main>
+<script src="js/api.js"></script>
+<script src="js/login-fx.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

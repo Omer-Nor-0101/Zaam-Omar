@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omar &amp; Zaam</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/dreams.css">
+<link rel="stylesheet" href="css/letters.css">
+</head>
+<body data-page="home">
+<section class="pg pgp" id="home" data-sec="home">
+<header class="hero home-hero">
+  <svg class="hero-art" id="heroArt" data-art="couple" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <nav class="nav" id="siteNav" aria-label="Main"></nav>
+    <div class="hero-body">
+      <div>
+        <div class="welcome" id="welcome"></div>
+        <div class="eyebrow">WELCOME TO <span>&#9829;</span></div>
+        <h1 class="home-h1">Our Love<br><span class="pinkword">Story</span></h1>
+        <p class="lede">Every moment with you is<br>my favorite memory. <span style="color:#ff6f9f">&#9829;</span></p>
+        <a class="btn-solid sm" href="#story"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C5 15.500 2 12 2 8.500 2 5.800 4.200 4 6.800 4c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 4 22 5.800 22 8.500c0 3.500-3 7-10 12.500z"/></svg> Our Story</a>
+      </div>
+    </div>
+    <section class="together-card" aria-label="Time together">
+      <div class="tc-head"><div><h2>Together Since <span style="color:#ff6f9f">&#9829;</span></h2><p id="sinceDate"></p></div><button type="button" class="link-btn light" data-setdate>Set our date</button></div>
+      <div class="units" id="units" aria-live="off"></div>
+      <svg class="neon-heart" width="74" height="68" viewBox="0 0 64 60" fill="none" stroke="#ff6f9f" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M32 54C13 39 6 29 6 19.500 6 12 12 7 19 7c5 0 9.500 2.800 13 8 3.500-5.200 8-8 13-8 7 0 13 5 13 12.500C58 29 51 39 32 54z"/></svg>
+    </section>
+  </div>
+</header>
+
+<main class="home-main">
+  <div class="stats" id="stats"></div>
+  <section class="magic" id="magicSec" aria-label="Magic corner"></section>
+  <section class="pub" id="pubSec" aria-label="Published by you two" hidden>
+    <div class="rm-head"><h2 class="section-title bar">Latest Published <span class="heart">&#9829;</span></h2><div class="pub-filter" id="pubFilter" role="group" aria-label="Filter by who published"></div></div>
+    <div class="pub-list" id="pubList"></div>
+  </section>
+  <div class="rm-head"><h2 class="section-title bar">Recent Memories <span class="heart">&#9829;</span></h2><a class="view-all" href="#photos">View All Memories &rarr;</a></div>
+  <div class="rcar" id="rcar" tabindex="0" aria-label="Recent memories"></div>
+  <div class="dots" id="dots" role="tablist" aria-label="Memories pages"></div>
+  <section class="quote-cta" aria-label="A quote about love">
+    <svg class="qc-heart" width="88" height="80" viewBox="0 0 24 22" fill="#ffb6cc" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg>
+    <p>&ldquo;In you, I&rsquo;ve found the love of my life and my closest friend.&rdquo;</p>
+    <a class="btn-solid sm" href="#story"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C5 15.500 2 12 2 8.500 2 5.800 4.200 4 6.800 4c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 4 22 5.800 22 8.500c0 3.500-3 7-10 12.500z"/></svg> Read Our Story</a>
+  </section>
+</main>
+</section>
+<section class="pg pgp" id="photos" data-sec="photos">
+<header class="hero simple photos-hero">
+  <svg class="hero-art" id="heroArt" data-art="photos" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <h1>Our Memories<svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg></h1>
+        <p class="lede">Every picture holds a story,<br>and every story is our favorite. <span style="color:#ff6f9f">&#9829;</span></p>
+        <div class="hero-row">
+          <div class="stat-card"><span class="stat-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M3 17l5-4 4 3 3-2 6 4"/></svg></span><span><b id="statCount">0 Photos</b><small>Countless Memories</small></span></div>
+          <label class="btn-solid file-btn">Add Photos <span aria-hidden="true">+</span><input id="addPhotos" type="file" accept="image/*" multiple></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="photos-layout">
+    <aside class="side" aria-label="Photo categories">
+      <section class="panel"><h3>Categories</h3><ul class="pcats" id="pcats"></ul></section>
+      <section class="panel memory-box"><span class="mb-heart" aria-hidden="true"><svg width="38" height="34" viewBox="0 0 24 22" fill="#ff6f9f"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg></span><h3>Your Memory Box</h3><p>The best memories are the ones we make together.</p></section>
+    </aside>
+    <section aria-label="Photos">
+      <div class="ptools">
+        <label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.500-3.500"/></svg><input id="q" type="search" placeholder="Search memories..." autocomplete="off"></label>
+        <div class="fwrap"><button type="button" class="tool-btn" id="filterBtn" aria-expanded="false" aria-controls="filterMenu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg> Filter <span class="fcount" id="fCount" hidden></span></button>
+          <div class="fmenu" id="filterMenu" hidden>
+            <label><input type="checkbox" id="fFav"> Favorites only</label>
+            <label><input type="checkbox" id="fMine"> My uploads only</label>
+            <label><input type="checkbox" id="fPlace"> Has a place</label>
+            <button type="button" class="link-btn" id="fClear">Clear filters</button>
+          </div></div>
+        <select class="tool-btn" id="sort" aria-label="Sort photos"><option value="newest">Newest First</option><option value="oldest">Oldest First</option><option value="fav">Favorites First</option><option value="title">Title A to Z</option></select>
+      </div>
+      <p class="count-line" id="countLine"></p>
+      <div class="pgrid" id="pgrid"></div>
+      <nav class="pager" id="pager" aria-label="Pages"></nav>
+    </section>
+  </div>
+  <div class="memory-strip"><svg width="46" height="42" viewBox="0 0 24 22" fill="#ffb6cc" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg><p>&ldquo;We didn&rsquo;t just take pictures, we created memories.&rdquo;</p><svg width="30" height="28" viewBox="0 0 24 22" fill="none" stroke="#ff8db0" stroke-width="1.4" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg></div>
+</main>
+
+<dialog id="lb" class="lightbox"><div class="lb">
+  <div class="lb-stage"><div class="lb-media" id="lbStage"></div>
+    <button type="button" class="lb-nav prev" id="lbPrev" aria-label="Previous photo">&lsaquo;</button>
+    <button type="button" class="lb-nav next" id="lbNext" aria-label="Next photo">&rsaquo;</button></div>
+  <div class="lb-info"><div><h2 id="lbTitle"></h2><small id="lbMeta"></small></div>
+    <div class="lb-edit"><label>Category<select id="lbAlbum"></select></label><label>Place<input id="lbPlace" maxlength="30" placeholder="Where was this?"></label></div>
+    <div class="actions"><button type="button" class="danger" id="lbDel">Delete</button><button type="button" id="lbFav" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> <span>Favorite</span></button><button type="button" class="primary" id="lbClose">Close</button></div>
+  </div></div></dialog>
+</section>
+<section class="pg pgp" id="videos" data-sec="videos">
+<header class="hero simple photos-hero">
+  <svg class="hero-art" id="heroArt" data-art="couple" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">OUR VIDEOS <span>&#9829;</span></div>
+        <h1>Moments in Motion</h1>
+        <p class="lede">Some memories move your heart<br>forever. <span style="color:#ff6f9f">&#9829;</span></p>
+        <div class="hero-row">
+          <div class="stat-card"><span class="stat-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="6" width="13" height="12" rx="2.500"/><path d="M17 10.500l5-3v9l-5-3z"/></svg></span><span><b id="statCount">0 Videos</b><small>Precious Moments Captured</small></span></div>
+          <button class="btn-solid" id="addBtn" type="button">Add Video <span aria-hidden="true">+</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="photos-layout">
+    <aside class="side" aria-label="Video categories">
+      <section class="panel"><h3>Categories</h3><ul class="pcats" id="pcats"></ul></section>
+      <section class="panel featured" id="featured"></section>
+      <section class="panel dark-card"><h3><svg width="20" height="18" viewBox="0 0 24 22" fill="#ff6f9f" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> Video Memories</h3><p>Every video tells a part of our beautiful story.</p><svg class="neon-heart" width="46" height="42" viewBox="0 0 64 60" fill="none" stroke="#ff6f9f" stroke-width="2.400" stroke-linecap="round" aria-hidden="true"><path d="M32 54C13 39 6 29 6 19.500 6 12 12 7 19 7c5 0 9.500 2.800 13 8 3.500-5.200 8-8 13-8 7 0 13 5 13 12.500C58 29 51 39 32 54z"/></svg></section>
+    </aside>
+    <section aria-label="Videos">
+      <div class="ptools">
+        <label class="search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.500-3.500"/></svg><input id="q" type="search" placeholder="Search videos..." autocomplete="off"></label>
+        <div class="fwrap"><button type="button" class="tool-btn" id="filterBtn" aria-expanded="false" aria-controls="filterMenu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg> Filter <span class="fcount" id="fCount" hidden></span></button>
+          <div class="fmenu" id="filterMenu" hidden>
+            <label><input type="checkbox" id="fFav"> Favorites only</label>
+            <label><input type="checkbox" id="fMine"> My videos only</label>
+            <label><input type="checkbox" id="fPlace"> Has a place</label>
+            <button type="button" class="link-btn" id="fClear">Clear filters</button>
+          </div></div>
+        <select class="tool-btn" id="sort" aria-label="Sort videos"><option value="newest">Newest First</option><option value="oldest">Oldest First</option><option value="fav">Favorites First</option><option value="title">Title A to Z</option></select>
+      </div>
+      <p class="count-line" id="countLine"></p>
+      <div class="vgrid4" id="vgrid"></div>
+      <nav class="pager" id="pager" aria-label="Pages"></nav>
+    </section>
+  </div>
+  <div class="memory-strip dark"><span class="bigq" aria-hidden="true">&ldquo;</span><p>&ldquo;The best things in life are the people we love, the places we&rsquo;ve been, and the <em>memories</em> we&rsquo;ve made.&rdquo;</p><svg width="46" height="42" viewBox="0 0 64 60" fill="none" stroke="#ff6f9f" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="filter:drop-shadow(0 0 8px rgba(255,90,140,.9))"><path d="M32 54C13 39 6 29 6 19.500 6 12 12 7 19 7c5 0 9.500 2.800 13 8 3.500-5.200 8-8 13-8 7 0 13 5 13 12.500C58 29 51 39 32 54z"/></svg></div>
+</main>
+
+<dialog id="vDlg" class="vdlg"><div>
+  <div class="v-player" id="vPlayer"></div>
+  <div class="v-info"><div><h2 id="vTitle"></h2><small class="hint" id="vMeta"></small></div>
+    <p class="hint" id="vNote"></p>
+    <div class="actions"><button type="button" class="danger" id="vDel">Delete</button><label class="btn-solid sm file-btn" id="vFileBtn" style="margin-right:auto">Choose video file<input id="vFile" type="file" accept="video/*"></label><button type="button" id="vEdit">Edit details</button><button type="button" class="primary" id="vClose">Close</button></div>
+  </div></div></dialog>
+<dialog id="vForm"><form class="dlg-form" id="vf" method="dialog"><h2 id="vfTitle">Add a video</h2>
+  <label class="field">Title<input id="vfName" required maxlength="50" placeholder="Our first road trip"></label>
+  <div class="row2"><label class="field">Category<select id="vfCat"></select></label><label class="field">Date<input id="vfDate" type="date" required></label></div>
+  <div class="row2"><label class="field">Place<input id="vfPlace" maxlength="30" placeholder="Where was it?"></label><label class="field">Length (optional)<input id="vfDur" maxlength="8" placeholder="03:24"></label></div>
+  <label class="check"><input id="vfFeat" type="checkbox"> Show as the featured video</label>
+  <label class="field">Video file (optional)<input id="vfFile" type="file" accept="video/*"></label>
+  <p class="hint" id="vfHint">Choose a video (up to 150 MB). It is saved on our server and stays here for good.</p>
+  <div class="actions"><button type="button" id="vfCancel">Cancel</button><button type="submit" class="primary" id="vfSave">Save video</button></div></form></dialog>
+</section>
+<section class="pg pgp" id="story" data-sec="story">
+<header class="hero simple story-hero">
+  <svg class="hero-art" id="heroArt" data-art="couple" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">OUR JOURNEY <span>&#9829;</span></div>
+        <h1>Our Story<svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg></h1>
+        <p class="script italic">It all started with a simple hello...</p>
+        <p class="lede">Every chapter of our story is my<br>favorite part of my life. <span style="color:#ff6f9f">&#9829;</span></p>
+        <div class="hero-row">
+          <a class="btn-white" href="#videos"><span class="play-dot" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></span> Our Story Video</a>
+          <button class="btn-solid" id="addBtn" type="button">Add Milestone <span aria-hidden="true">+</span></button>
+        </div>
+      </div>
+      <aside class="since-card" aria-label="Time together">
+        <span class="since-heart" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 21C5 15.500 2 12 2 8.500 2 5.800 4.200 4 6.800 4c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 4 22 5.800 22 8.500c0 3.500-3 7-10 12.500z"/></svg></span>
+        <p class="since-l">Together Since</p>
+        <p class="since-d" id="sinceDate"></p>
+        <hr>
+        <p class="since-r"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span id="sinceDays"></span></p>
+        <p class="since-r"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg>Countless Memories</p>
+        <button type="button" class="link-btn light" data-setdate>Set our date</button>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="toolbar">
+    <div><h2 class="section-title">Our Journey <span class="heart">&#9829;</span></h2><p class="sub">A timeline of our beautiful moments together</p></div>
+    <select class="tool-btn pink" id="typeSel" aria-label="Filter moments" style="margin-left:auto">
+      <option value="all">All Moments</option><option value="first">Firsts</option><option value="trip">Trips</option><option value="surprise">Surprises</option><option value="milestone">Milestones</option><option value="future">Ahead of Us</option>
+    </select>
+  </div>
+  <div class="tl2" id="timeline"></div>
+  <section class="banner rev" aria-label="A quote about our story">
+    <div class="polas3" aria-hidden="true"><div class="pola a" id="polaA"></div><div class="pola b" id="polaB"></div><div class="pola c" id="polaC"></div></div>
+    <blockquote>&ldquo;I love every chapter of our story,<em>but my favorite is the one we are writing together.&rdquo;</em></blockquote>
+    <svg class="neon-heart" width="64" height="58" viewBox="0 0 64 60" fill="none" stroke="#ff6f9f" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M32 54C13 39 6 29 6 19.500 6 12 12 7 19 7c5 0 9.500 2.800 13 8 3.500-5.200 8-8 13-8 7 0 13 5 13 12.500C58 29 51 39 32 54z"/></svg>
+  </section>
+</main>
+<dialog id="sDlg"><form class="dlg-form" id="sf" method="dialog"><h2 id="sfTitle">Add a milestone</h2>
+  <label class="field">Title<input id="sfName" required maxlength="50" placeholder="The day we met"></label>
+  <div class="row2"><label class="field">Date<input id="sfDate" type="date"></label><label class="field">Kind of moment<select id="sfType"><option value="first">A first</option><option value="trip">A trip</option><option value="surprise">A surprise</option><option value="milestone">A milestone</option></select></label></div>
+  <label class="check"><input id="sfFuture" type="checkbox"> This is still ahead of us</label>
+  <label class="field">What happened<textarea id="sfText" class="tall" required maxlength="600" placeholder="Write it the way you remember it."></textarea></label>
+  <div class="row2"><label class="field">Picture<select id="sfArt"></select></label><label class="field">Icon on the line<select id="sfIcon"></select></label></div>
+  <div class="actions"><button type="button" class="danger" id="sfDel" hidden>Delete</button><button type="button" id="sfCancel">Cancel</button><button type="submit" class="primary" id="sfSave">Add milestone</button></div></form></dialog>
+</section>
+<section class="pg pgp" id="places" data-sec="places">
+<header class="hero simple">
+  <svg class="hero-art" id="heroArt" data-art="places" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">OUR PLACES <span>&#9829;</span></div>
+        <h1>Places<svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg></h1>
+        <p class="script">Every corner has a memory</p>
+        <p class="lede">The cafes, beaches and benches that became ours. Search for each real place and pin it on the world map.</p>
+        <button class="btn-solid" id="addBtn" type="button">Add Place <span aria-hidden="true">+</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="toolbar">
+    <h2 class="section-title">Our Map <span class="heart">&#9829;</span></h2>
+    <div class="chips" role="group" aria-label="Filter by type" id="chips"></div>
+  </div>
+  <div class="layout">
+    <div class="map" id="map"></div>
+    <aside class="side" aria-label="Places">
+      <section class="panel"><h3>Selected Place <span class="heart">&#9829;</span></h3><div class="detail" id="detail"></div></section>
+      <section class="panel"><h3>All Places <span class="heart">&#9829;</span></h3><ul class="plist" id="plist"></ul></section>
+    </aside>
+  </div>
+
+</main>
+<dialog id="pDlg"><form class="dlg-form" id="pf" method="dialog"><h2 id="pfTitle">Add a place</h2>
+  <div class="field" id="pfFind">Find the real place
+    <div class="find-row"><input id="pfQ" type="search" maxlength="120" placeholder="Search a cafe, beach, city or address..." autocomplete="off"><button type="button" id="pfSearch" data-owner>Search</button></div>
+    <ul class="find-res" id="pfRes" hidden></ul>
+    <p class="hint" id="pfLoc">No location chosen yet. Search above, use your location, or tap the map.</p>
+    <div class="find-tools"><button type="button" class="link-btn" id="pfGeo" data-owner>Use my location</button><button type="button" class="link-btn" id="pfPick" data-owner>Choose on the map</button></div>
+  </div>
+  <label class="field">Name<input id="pfName" required maxlength="60" placeholder="The corner cafe"></label>
+  <div class="row2"><label class="field">Type<select id="pfType"></select></label><label class="field">First time we went<input id="pfDate" type="date"></label></div>
+  <label class="field">How much we love it: <output id="pfRatingOut">5</output> of 5<input id="pfRating" type="range" min="1" max="5" step="1" value="5"></label>
+  <label class="field">Our memory here<textarea id="pfNote" maxlength="300" placeholder="What makes this place ours?"></textarea></label>
+  <div class="actions"><button type="button" class="danger" id="pfDel" hidden>Delete</button><button type="button" id="pfCancel">Cancel</button><button type="submit" class="primary" id="pfSave">Add place</button></div></form></dialog>
+</section>
+<section class="pg" id="dreams" data-sec="dreams">
+<header class="hero">
+  <svg class="hero-art" id="heroArt" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">OUR BUCKET LIST <span>&#9829;</span></div>
+        <h1>Future Dreams
+          <svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg>
+        </h1>
+        <p class="script">Places we dream to go together</p>
+        <p class="lede">Different places, beautiful memories, one love, a lifetime together. <span class="heart" style="color:#ff6f9f">&#9829;</span></p>
+        <button class="btn-outline" id="addBtn" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg>
+          Add New Dream <span class="plus" aria-hidden="true">+</span>
+        </button>
+      </div>
+      <aside class="glass">
+        <p>It&rsquo;s not about the destination, it&rsquo;s about who we&rsquo;re going there with.</p>
+        <svg width="64" height="60" viewBox="0 0 64 60" fill="none" stroke="#ff6f9f" stroke-width="2.200" stroke-linecap="round" style="filter:drop-shadow(0 0 8px rgba(255,90,140,.8))"><path d="M32 54C13 39 6 29 6 19.500 6 12 12 7 19 7c5 0 9.500 2.800 13 8 3.500-5.200 8-8 13-8 7 0 13 5 13 12.500C58 29 51 39 32 54z"/></svg>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="layout">
+    <section aria-labelledby="destTitle">
+      <div class="toolbar">
+        <h2 id="destTitle">Our Dream Destinations <span class="heart">&#9829;</span></h2>
+        <div class="chips" role="group" aria-label="Filter by status" id="chips"></div>
+        <select class="sort" id="sort" aria-label="Sort destinations">
+          <option value="default">Sort by: Default</option>
+          <option value="date">Sort by: Soonest</option>
+          <option value="progress">Sort by: Progress</option>
+          <option value="name">Sort by: Name</option>
+        </select>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <aside class="side" aria-label="Journey summary">
+      <section class="panel">
+        <h3>Our Journey Progress <span class="heart">&#9829;</span></h3>
+        <div class="progress">
+          <div class="ring">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="none" stroke="var(--pink-soft)" stroke-width="8"/><circle id="ringArc" cx="40" cy="40" r="34" fill="none" stroke="var(--pink)" stroke-width="8" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6"/></svg>
+            <span id="ringPct">0%</span>
+          </div>
+          <dl><dt>Dreams Completed</dt><dd id="ringCount">0 / 0 Places</dd></dl>
+        </div>
+        <p class="quote-s">&ldquo;One day, all these places will become our memories.&rdquo;</p>
+      </section>
+      <section class="panel">
+        <h3>Categories <span class="heart">&#9829;</span></h3>
+        <ul class="cats" id="cats"></ul>
+      </section>
+      <section class="panel">
+        <h3>Our Next Dream <span class="heart">&#9829;</span></h3>
+        <div id="next"></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="banner" aria-label="Our promise">
+    <svg class="plane" width="120" height="110" viewBox="0 0 120 110" fill="none" stroke="#ffd0df" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M44 92C14 80 8 50 28 38c14-8 30 2 24 16-5 11-18 10-22 0"/>
+      <path d="M52 58C70 60 82 52 96 38" stroke-dasharray="4 5"/>
+      <path d="M96 38l16-14-26 4 4 8 6-2z" fill="rgba(255,255,255,.2)"/>
+      <path d="M30 100C22 94 18 88 18 84c0-3 2-5 5-5 2 0 4 1 5 3 1-2 3-3 5-3 3 0 5 2 5 5 0 4-4 10-8 16z" transform="translate(-4 -14) scale(.8)"/>
+    </svg>
+    <blockquote>&ldquo;We don&rsquo;t have to go far, because every place is beautiful<em>when I&rsquo;m with you.&rdquo; &#9829;</em></blockquote>
+    <div class="polas" aria-hidden="true">
+      <div class="pola a" id="polaA"></div>
+      <div class="pola b" id="polaB"></div>
+      <svg class="spark" style="right:0;top:20px" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C5 15 3 12 3 8.500 3 6 5 4 7.500 4c2 0 3.500 1 4.500 2.500C13 5 14.500 4 16.500 4 19 4 21 6 21 8.500 21 12 19 15 12 21z"/></svg>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <form class="dlg-form" id="form" method="dialog">
+    <h2 id="dlgTitle">Add a dream</h2>
+    <label class="field">Destination<input id="fName" required maxlength="40" placeholder="Kyoto, Japan"></label>
+    <label class="field">A few words about it<textarea id="fBlurb" maxlength="90" placeholder="Temples, tea houses and autumn leaves."></textarea></label>
+    <div class="row2">
+      <label class="field">Category<select id="fCat"></select></label>
+      <label class="field">Status<select id="fStatus"><option value="wishlist">Wishlist</option><option value="planned">Planned</option><option value="visited">Visited</option></select></label>
+    </div>
+    <div class="row2">
+      <label class="field">When<input id="fDate" type="month"></label>
+      <label class="field">Ready: <output id="fProgOut">0%</output><input id="fProg" type="range" min="0" max="100" step="5" value="0"></label>
+    </div>
+    <div class="field media-field">
+      <span>Photo or video <em>(optional, up to 150 MB)</em></span>
+      <div class="media-prev" id="fMediaPrev" hidden></div>
+      <input id="fMedia" type="file" accept="image/*,video/*">
+      <p class="hint" id="fMediaNote">Add a photo or a video, up to 150 MB.</p>
+      <button type="button" class="link-btn" id="fMediaDel" data-owner hidden>Remove photo/video</button>
+    </div>
+    <div class="actions">
+      <button type="button" class="danger" id="delBtn" hidden>Delete</button>
+      <button type="button" id="cancelBtn">Cancel</button>
+      <button type="submit" class="primary" id="saveBtn">Add dream</button>
+    </div>
+  </form>
+</dialog>
+</section>
+<section class="pg" id="letters" data-sec="letters">
+<header class="hero">
+  <svg class="hero-art" id="heroArt" viewBox="0 0 1280 330" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">OUR LETTERS <span>&#9829;</span></div>
+        <h1>Letters
+          <svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg>
+        </h1>
+        <p class="script">Words from the heart</p>
+        <p class="lede">A collection of love letters, sweet notes, and words that mean everything. <span style="color:#ff6f9f">&#9829;</span></p>
+        <button class="btn-solid" id="writeBtn" type="button">Write New Letter <span aria-hidden="true">+</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <div class="layout">
+    <section aria-label="Letters">
+      <div class="toolbar">
+        <label class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.500-3.500"/></svg>
+          <input id="q" type="search" placeholder="Search letters..." autocomplete="off">
+        </label>
+        <div class="chips" role="group" aria-label="Filter by category" id="chips"></div>
+        <select class="sort" id="sort" aria-label="Sort letters">
+          <option value="newest">Sort by: Newest</option>
+          <option value="oldest">Sort by: Oldest</option>
+          <option value="title">Sort by: Title</option>
+          <option value="fav">Sort by: Favorites</option>
+        </select>
+      </div>
+      <div class="lgrid" id="lgrid"></div>
+    </section>
+
+    <aside class="side" aria-label="Letter summary">
+      <section class="panel">
+        <h3>Our Letter Moments <span class="heart">&#9829;</span></h3>
+        <div class="moments">
+          <div class="heart-ring"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21C5 15.500 2 12 2 8.500 2 5.800 4.200 4 6.800 4c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 4 22 5.800 22 8.500c0 3.500-3 7-10 12.500z"/></svg></div>
+          <div><strong id="total">0</strong><small>Letters Written</small></div>
+        </div>
+        <p class="pq">&ldquo;Every word is a piece of my heart for you.&rdquo;</p>
+      </section>
+      <section class="panel">
+        <h3>Letter Categories <span class="heart">&#9829;</span></h3>
+        <ul class="lcats" id="lcats"></ul>
+      </section>
+      <section class="panel">
+        <h3>Most Recent <span class="heart">&#9829;</span></h3>
+        <div id="recent"></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="banner" aria-label="A quote about love">
+    <svg class="plane" width="110" height="100" viewBox="0 0 120 110" fill="none" stroke="#ffd0df" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M44 92C14 80 8 50 28 38c14-8 30 2 24 16-5 11-18 10-22 0"/>
+      <path d="M52 58C70 60 82 52 96 38" stroke-dasharray="4 5"/>
+      <path d="M96 38l16-14-26 4 4 8 6-2z" fill="rgba(255,255,255,.2)"/>
+    </svg>
+    <blockquote>&ldquo;The best love is the one that makes you a better person, <em>without changing you into someone other than yourself.&rdquo; &#9829;</em></blockquote>
+    <div class="polas" aria-hidden="true">
+      <div class="pola a" id="polaA"></div>
+      <div class="pola b" id="polaB"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="readDlg">
+  <article class="read" aria-labelledby="rTitle">
+    <div class="read-head"><span class="tag" id="rTag"></span><span id="rDate"></span></div>
+    <h2 id="rTitle"></h2>
+    <div class="read-body" id="rBody"></div>
+    <div class="actions">
+      <button type="button" class="fav-btn" id="rFav" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg>
+        <span>Favorite</span>
+      </button>
+      <button type="button" id="rEdit">Edit</button>
+      <button type="button" class="primary" id="rClose">Close</button>
+    </div>
+  </article>
+</dialog>
+
+<dialog id="writeDlg">
+  <form class="dlg-form" id="form" method="dialog">
+    <h2 id="wTitle">Write a letter</h2>
+    <label class="field">Title<input id="fTitle" required maxlength="50" placeholder="For when you miss me"></label>
+    <div class="row2">
+      <label class="field">Category<select id="fCat"></select></label>
+      <label class="field">Date<input id="fDate" type="date" required></label>
+    </div>
+    <label class="field">Your words<textarea id="fBody" class="tall" required maxlength="2000" placeholder="Start with the first thing that comes to mind..."></textarea></label>
+    <div class="actions">
+      <button type="button" class="danger" id="delBtn" hidden>Delete</button>
+      <button type="button" id="cancelBtn">Cancel</button>
+      <button type="submit" class="primary" id="saveBtn">Save letter</button>
+    </div>
+  </form>
+</dialog>
+</section>
+<section class="pg pgp" id="surprises" data-sec="surprises">
+<header class="hero simple">
+  <svg class="hero-art" id="heroArt" data-art="surprise" viewBox="0 0 1200 420" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"></svg>
+  <div class="hero-inner">
+    <div class="hero-body">
+      <div>
+        <div class="eyebrow">SPECIAL DAYS <span>&#9829;</span></div>
+        <h1>Surprises</h1>
+        <p class="script">A message from the heart, on the very day</p>
+        <p class="lede">Save birthdays, our anniversary or any special date with a message from you. When the day comes and the site is opened, a gift appears with your words.</p>
+        <button class="btn-solid" id="addBtn" type="button">Add a Surprise <span aria-hidden="true">+</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="sheet">
+  <section class="nextcard" id="next" aria-live="polite"></section>
+  <div class="toolbar" style="margin-top:26px"><h2 class="section-title">Our Special Days <span class="heart">&#9829;</span></h2></div>
+  <p class="sc-note" id="howNote">The surprise opens when you or your love visit the site on that day. The site cannot send messages by itself while it is closed.</p>
+  <div class="sgrid" id="sgrid"></div>
+</main>
+
+<dialog id="sDlg">
+  <form class="dlg-form" id="sf" method="dialog">
+    <h2 id="sfTitle">Add a surprise</h2>
+    <label class="field">Type
+      <select id="sfKind"><option value="birthday">Birthday</option><option value="custom">Other special day</option></select></label>
+    <label class="field">Title
+      <input id="sfName" maxlength="40" placeholder="Zaam's birthday" required></label>
+    <div class="row2">
+      <label class="field" id="dateRow">Date (birth date or the day)
+        <input id="sfDate" type="date" required></label>
+      <label class="field">Message is for
+        <input id="sfTo" maxlength="30" placeholder="My love"></label>
+    </div>
+    <label class="field">Your message
+      <textarea id="sfText" rows="7" maxlength="1200" placeholder="Write from your heart, or press Write one for me."></textarea></label>
+    <div class="writer"><select id="sfTone" aria-label="Style of message"><option value="romantic">Romantic</option><option value="sweet">Sweet</option><option value="poetic">Poetic</option></select>
+      <button type="button" id="sfWrite">Write one for me</button><button type="button" id="sfPrev">Preview</button></div>
+    <p class="hint" id="sfNote">Leave the message empty and a loving one is written for you on the day.</p>
+    <div class="actions"><button type="button" class="danger" id="sfDel" hidden>Delete</button><button type="button" id="sfCancel">Cancel</button><button type="submit" class="primary" id="sfSave">Save surprise</button></div>
+  </form>
+</dialog>
+</section>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/api.js"></script>
+<script src="js/common.js"></script>
+<script src="js/surprise.js"></script>
+<script src="js/magic.js"></script>
+<script src="js/seeds.js"></script>
+<script src="js/scenes-extra.js"></script>
+<script src="js/dreams/scenes.js"></script>
+<script src="js/letters/scenes.js"></script>
+<script src="js/hero-art.js"></script>
+<script src="js/pages/home.js"></script>
+<script src="js/pages/photos.js"></script>
+<script src="js/pages/videos.js"></script>
+<script src="js/pages/story.js"></script>
+<script src="js/pages/places.js"></script>
+<script src="js/pages/surprises.js"></script>
+<script src="js/dreams/hero.js"></script>
+<script src="js/dreams/data.js"></script>
+<script src="js/dreams/app.js"></script>
+<script src="js/letters/hero.js"></script>
+<script src="js/letters/data.js"></script>
+<script src="js/letters/app.js"></script>
+</body>
+</html>
