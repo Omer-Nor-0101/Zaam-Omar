@@ -138,6 +138,7 @@
       $('vNote').textContent=(v.sample?'This is a sample entry. ':'')+'Choose a video file (up to 150 MB) and it will be saved here for good.';
       $('vFileBtn').firstChild.nodeValue='Choose video file';
     }
+    var dl=$('vDownload');if(dl){if(u){dl.href=u+'&download=1';dl.download=(v.media&&v.media.name)||((v.title||'video').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'.mp4');dl.hidden=false}else dl.hidden=true}
     $('vFileBtn').hidden=!FU.canEdit(v);
   }
   dlg.addEventListener('close',function(){var vid=$('vPlayer').querySelector('video');if(vid)vid.pause()});

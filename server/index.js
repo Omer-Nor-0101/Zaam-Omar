@@ -258,7 +258,7 @@ app.get('/api/media/:id', authMedia, wrap(async (req, res) => {
   res.status(status).set({
     'Content-Type': m.type, 'Content-Length': String(end - start + 1), 'Accept-Ranges': 'bytes',
     'Cache-Control': 'private, max-age=86400', 'X-Content-Type-Options': 'nosniff',
-    'Content-Disposition': 'inline; filename="' + m.name.replace(/[^\w.\- ]/g, '_') + '"'
+    'Content-Disposition': (req.query.download ? 'attachment' : 'inline') + '; filename="' + m.name.replace(/[^\w.\- ]/g, '_') + '"'
   });
   for (let k = Math.floor(start / CHUNK); k <= Math.floor(end / CHUNK); k++) {
     if (res.destroyed) return;

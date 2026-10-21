@@ -307,3 +307,5 @@ html{scroll-padding-top:72px}
 .pg{position:relative}
 .pg>.hero{padding-top:calc(72px + env(safe-area-inset-top,0px))}
 #home>.hero{padding-top:0}
+.btn-solid[hidden]{display:none}
+.actions a.btn-solid{box-shadow:none;border-radius:10px;padding:10px 18px;text-decoration:none;cursor:pointer}

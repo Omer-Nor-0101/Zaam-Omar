@@ -103,7 +103,7 @@
     <button type="button" class="lb-nav next" id="lbNext" aria-label="Next photo">&rsaquo;</button></div>
   <div class="lb-info"><div><h2 id="lbTitle"></h2><small id="lbMeta"></small></div>
     <div class="lb-edit"><label>Category<select id="lbAlbum"></select></label><label>Place<input id="lbPlace" maxlength="30" placeholder="Where was this?"></label></div>
-    <div class="actions"><button type="button" class="danger" id="lbDel">Delete</button><button type="button" id="lbFav" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> <span>Favorite</span></button><button type="button" class="primary" id="lbClose">Close</button></div>
+    <div class="actions"><button type="button" class="danger" id="lbDel">Delete</button><button type="button" id="lbFav" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> <span>Favorite</span></button><a class="btn-solid sm" id="lbDownload" download hidden>Download</a><button type="button" class="primary" id="lbClose">Close</button></div>
   </div></div></dialog>
 </section>
 <section class="pg pgp" id="videos" data-sec="videos">
@@ -155,7 +155,7 @@
   <div class="v-player" id="vPlayer"></div>
   <div class="v-info"><div><h2 id="vTitle"></h2><small class="hint" id="vMeta"></small></div>
     <p class="hint" id="vNote"></p>
-    <div class="actions"><button type="button" class="danger" id="vDel">Delete</button><label class="btn-solid sm file-btn" id="vFileBtn" style="margin-right:auto">Choose video file<input id="vFile" type="file" accept="video/*"></label><button type="button" id="vEdit">Edit details</button><button type="button" class="primary" id="vClose">Close</button></div>
+    <div class="actions"><button type="button" class="danger" id="vDel">Delete</button><label class="btn-solid sm file-btn" id="vFileBtn" style="margin-right:auto">Choose video file<input id="vFile" type="file" accept="video/*"></label><a class="btn-solid sm" id="vDownload" download hidden>Download</a><button type="button" id="vEdit">Edit details</button><button type="button" class="primary" id="vClose">Close</button></div>
   </div></div></dialog>
 <dialog id="vForm"><form class="dlg-form" id="vf" method="dialog"><h2 id="vfTitle">Add a video</h2>
   <label class="field">Title<input id="vfName" required maxlength="50" placeholder="Our first road trip"></label>

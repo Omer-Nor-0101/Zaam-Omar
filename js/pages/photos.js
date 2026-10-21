@@ -112,6 +112,7 @@
     $('lbMeta').textContent=fmt(p.date)+(p.place?' · '+p.place:'');
     var by=$('lbBy');if(!by){by=document.createElement('div');by.id='lbBy';$('lbMeta').insertAdjacentElement('afterend',by)}
     by.innerHTML=FU.byline(p);var can=FU.canEdit(p);$('lbDel').hidden=!can;$('lbAlbum').disabled=$('lbPlace').disabled=!can;
+    var dl=$('lbDownload');if(dl){if(p.src){var ext=(/^data:image\/(\w+)/.exec(p.src)||[])[1]||'jpg';dl.href=p.src;dl.download=(p.title||'photo').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'.'+(ext==='jpeg'?'jpg':ext);dl.hidden=false}else dl.hidden=true}
     $('lbAlbum').value=p.album;$('lbPlace').value=p.place||'';
     $('lbFav').setAttribute('aria-pressed',p.fav);$('lbFav').querySelector('span').textContent=p.fav?'Favorited':'Favorite';
   }
