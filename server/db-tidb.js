@@ -37,7 +37,7 @@ async function init() {
       Username VARCHAR(30) NULL,
       Email VARCHAR(200) NULL,
       PasswordHash VARCHAR(100) NOT NULL,
-      Created DATE NOT NULL DEFAULT (UTC_DATE()),
+      Created DATE NOT NULL,
       UNIQUE KEY UX_Users_AccountKey (AccountKey),
       UNIQUE KEY UX_Users_Username (Username),
       UNIQUE KEY UX_Users_Email (Email)
@@ -98,7 +98,7 @@ async function userExists(username, email) {
 }
 async function createUser({ name, username, email, key, hash }) {
   const [res] = await pool.query(
-    'INSERT INTO Users (AccountKey,Name,Username,Email,PasswordHash) VALUES (?,?,?,?,?)',
+    'INSERT INTO Users (AccountKey,Name,Username,Email,PasswordHash,Created) VALUES (?,?,?,?,?,UTC_DATE())',
     [key, name, username || null, email || null, hash]);
   return findUserById(res.insertId);
 }
