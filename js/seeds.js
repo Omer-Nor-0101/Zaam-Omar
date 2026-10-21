@@ -28,14 +28,7 @@
       ['Movie Night','dates','2024-08-25','Home','01:24','tv'],['The Surprise','surprises','2024-09-01','Our Place','02:52','roses'],
       ['City Lights','travel','2024-09-08','Dubai','03:44','city'],['Dancing in the Rain','special','2024-09-15','Street','02:03','umbrella']
     ],function(r,i){return {fav:i===2||i===3||i===6||i===7||i===10||i===11,featured:i===2}}),
-    places:make(['name','type','date','rating','note','x','y'],[
-      ['The corner cafe','food','2022-03-05',5,'Our first coffee. Replace this with what you ordered and what you talked about.',24,34],
-      ['Sunset beach','nature','2022-07-16',5,'Where the sky does that pink thing. Add your own memory here.',78,24],
-      ['Riverside bench','hangout','2022-04-02',4,'The bench where we sat for hours. Edit this to tell it your way.',60,52],
-      ['Old town square','trips','2022-09-10',4,'Cobblestones, lights and street music. Add what you remember.',34,68],
-      ['The little noodle place','food','2023-01-14',5,'Our go-to after a long week. Add your order here.',82,70],
-      ['Hilltop viewpoint','nature','2023-05-27',5,'The whole city at our feet. Add the story of the climb.',16,16]
-    ]),
+    places:function(){return []},   /* places are real: added by you and found on the real map */
     story:make(['title','date','text','scene','icon','type'],[
       ['The First Meeting','2024-06-20','The moment our eyes met for the first time. My heart knew, this is the beginning of something beautiful.','couple','people','first'],
       ['First Conversation','2024-06-21','We talked for hours like we had known each other forever. Time didn’t matter when we were talking.','neon','chat','first'],

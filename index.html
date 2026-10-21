@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Forever Us</title>
+<title>Omar &amp; Zaam</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/pages.css">
 <link rel="stylesheet" href="css/dreams.css">
@@ -102,7 +103,7 @@
     <button type="button" class="lb-nav next" id="lbNext" aria-label="Next photo">&rsaquo;</button></div>
   <div class="lb-info"><div><h2 id="lbTitle"></h2><small id="lbMeta"></small></div>
     <div class="lb-edit"><label>Category<select id="lbAlbum"></select></label><label>Place<input id="lbPlace" maxlength="30" placeholder="Where was this?"></label></div>
-    <div class="actions"><button type="button" class="danger" id="lbDel">Delete</button><button type="button" id="lbDl"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> <span>Download</span></button><button type="button" id="lbFav" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> <span>Favorite</span></button><button type="button" class="primary" id="lbClose">Close</button></div>
+    <div class="actions"><button type="button" class="danger" id="lbDel">Delete</button><button type="button" id="lbFav" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg> <span>Favorite</span></button><button type="button" class="primary" id="lbClose">Close</button></div>
   </div></div></dialog>
 </section>
 <section class="pg pgp" id="videos" data-sec="videos">
@@ -154,7 +155,7 @@
   <div class="v-player" id="vPlayer"></div>
   <div class="v-info"><div><h2 id="vTitle"></h2><small class="hint" id="vMeta"></small></div>
     <p class="hint" id="vNote"></p>
-    <div class="actions"><button type="button" class="danger" id="vDel">Delete</button><label class="btn-solid sm file-btn" id="vFileBtn" style="margin-right:auto">Choose video file<input id="vFile" type="file" accept="video/*"></label><button type="button" id="vDl" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg> Download</button><button type="button" id="vEdit">Edit details</button><button type="button" class="primary" id="vClose">Close</button></div>
+    <div class="actions"><button type="button" class="danger" id="vDel">Delete</button><label class="btn-solid sm file-btn" id="vFileBtn" style="margin-right:auto">Choose video file<input id="vFile" type="file" accept="video/*"></label><button type="button" id="vEdit">Edit details</button><button type="button" class="primary" id="vClose">Close</button></div>
   </div></div></dialog>
 <dialog id="vForm"><form class="dlg-form" id="vf" method="dialog"><h2 id="vfTitle">Add a video</h2>
   <label class="field">Title<input id="vfName" required maxlength="50" placeholder="Our first road trip"></label>
@@ -162,8 +163,8 @@
   <div class="row2"><label class="field">Place<input id="vfPlace" maxlength="30" placeholder="Where was it?"></label><label class="field">Length (optional)<input id="vfDur" maxlength="8" placeholder="03:24"></label></div>
   <label class="check"><input id="vfFeat" type="checkbox"> Show as the featured video</label>
   <label class="field">Video file (optional)<input id="vfFile" type="file" accept="video/*"></label>
-  <p class="hint">Video files are too large to keep in the browser, so a chosen file plays until you reload the page. The title and details are always saved.</p>
-  <div class="actions"><button type="button" id="vfCancel">Cancel</button><button type="submit" class="primary">Save video</button></div></form></dialog>
+  <p class="hint" id="vfHint">Choose a video (up to 150 MB). It is saved on our server and stays here for good.</p>
+  <div class="actions"><button type="button" id="vfCancel">Cancel</button><button type="submit" class="primary" id="vfSave">Save video</button></div></form></dialog>
 </section>
 <section class="pg pgp" id="story" data-sec="story">
 <header class="hero simple story-hero">
@@ -224,7 +225,7 @@
         <div class="eyebrow">OUR PLACES <span>&#9829;</span></div>
         <h1>Places<svg viewBox="0 0 40 40" fill="none" stroke="#ff6f9f" stroke-width="1.6" stroke-linecap="round"><path d="M20 35C9 26 5 20 5 14.500 5 10 8.500 7 12.500 7c3 0 5.500 1.700 7.500 4.500C22 8.700 24.500 7 27.500 7 31.500 7 35 10 35 14.500 35 20 31 26 20 35z"/></svg></h1>
         <p class="script">Every corner has a memory</p>
-        <p class="lede">The cafes, beaches and benches that became ours. Pin each one on our map.</p>
+        <p class="lede">The cafes, beaches and benches that became ours. Search for each real place and pin it on the world map.</p>
         <button class="btn-solid" id="addBtn" type="button">Add Place <span aria-hidden="true">+</span></button>
       </div>
     </div>
@@ -246,11 +247,17 @@
 
 </main>
 <dialog id="pDlg"><form class="dlg-form" id="pf" method="dialog"><h2 id="pfTitle">Add a place</h2>
-  <label class="field">Name<input id="pfName" required maxlength="40" placeholder="The corner cafe"></label>
+  <div class="field" id="pfFind">Find the real place
+    <div class="find-row"><input id="pfQ" type="search" maxlength="120" placeholder="Search a cafe, beach, city or address..." autocomplete="off"><button type="button" id="pfSearch" data-owner>Search</button></div>
+    <ul class="find-res" id="pfRes" hidden></ul>
+    <p class="hint" id="pfLoc">No location chosen yet. Search above, use your location, or tap the map.</p>
+    <div class="find-tools"><button type="button" class="link-btn" id="pfGeo" data-owner>Use my location</button><button type="button" class="link-btn" id="pfPick" data-owner>Choose on the map</button></div>
+  </div>
+  <label class="field">Name<input id="pfName" required maxlength="60" placeholder="The corner cafe"></label>
   <div class="row2"><label class="field">Type<select id="pfType"></select></label><label class="field">First time we went<input id="pfDate" type="date"></label></div>
   <label class="field">How much we love it: <output id="pfRatingOut">5</output> of 5<input id="pfRating" type="range" min="1" max="5" step="1" value="5"></label>
   <label class="field">Our memory here<textarea id="pfNote" maxlength="300" placeholder="What makes this place ours?"></textarea></label>
-  <div class="actions"><button type="button" class="danger" id="pfDel" hidden>Delete</button><button type="button" id="pfMove" data-owner hidden>Move pin</button><button type="button" id="pfCancel">Cancel</button><button type="submit" class="primary" id="pfSave">Add place</button></div></form></dialog>
+  <div class="actions"><button type="button" class="danger" id="pfDel" hidden>Delete</button><button type="button" id="pfCancel">Cancel</button><button type="submit" class="primary" id="pfSave">Add place</button></div></form></dialog>
 </section>
 <section class="pg" id="dreams" data-sec="dreams">
 <header class="hero">
@@ -344,6 +351,13 @@
     <div class="row2">
       <label class="field">When<input id="fDate" type="month"></label>
       <label class="field">Ready: <output id="fProgOut">0%</output><input id="fProg" type="range" min="0" max="100" step="5" value="0"></label>
+    </div>
+    <div class="field media-field">
+      <span>Photo or video <em>(optional, up to 150 MB)</em></span>
+      <div class="media-prev" id="fMediaPrev" hidden></div>
+      <input id="fMedia" type="file" accept="image/*,video/*">
+      <p class="hint" id="fMediaNote">Add a photo or a video, up to 150 MB.</p>
+      <button type="button" class="link-btn" id="fMediaDel" data-owner hidden>Remove photo/video</button>
     </div>
     <div class="actions">
       <button type="button" class="danger" id="delBtn" hidden>Delete</button>
@@ -502,6 +516,7 @@
   </form>
 </dialog>
 </section>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="js/api.js"></script>
 <script src="js/common.js"></script>
 <script src="js/surprise.js"></script>

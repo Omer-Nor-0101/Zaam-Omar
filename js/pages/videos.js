@@ -1,5 +1,5 @@
 /* Videos: categories, search, filter, sort, pagination, featured video and a player dialog.
-   Titles and details are saved; a chosen video file plays until the page is reloaded. */
+   The video file is uploaded to the server (up to 150 MB) and stays there, so it never disappears. */
 (function(document){
   var FU=window.FU,esc=FU.esc,store=FU.store,toast=FU.toast;
   var KEY='forever-us-videos-v2',OLD_KEY='forever-us-videos-v1',PER_PAGE=12;
@@ -20,7 +20,7 @@
     return FU.seeds.videos();
   }
   var videos=load();
-  var files={};  /* id -> object URL, this tab only */
+  var MAX=150*1024*1024,saving=false;
   var state={cat:'all',q:'',sort:'newest',page:1,fav:false,mine:false,place:false},openId=null,editing=null,delArmed=false,pending=null;
   var $=function(id){return document.getElementById(id)};
   var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -30,6 +30,15 @@
   function byId(id){return videos.filter(function(v){return v.id===id})[0]}
   function cat(id){return CATS.filter(function(c){return c[0]===id})[0]||CATS[5]}
   function scene(v){return v.scene||cat(v.cat)[3]}
+  function url(v){return v&&v.media&&v.media.id?FUAPI.mediaUrl(v.media.id):''}
+  function thumb(v){var u=url(v);return u?'<video muted playsinline preload="metadata" src="'+u+'#t=0.5" aria-hidden="true" tabindex="-1"></video>':FU.art(scene(v))}
+  function mb(n){return (n/1048576).toFixed(n>=10485760?0:1)+' MB'}
+  function pickOk(f,input){
+    if(!f)return false;
+    if(!/^video\//.test(f.type)){toast('Please choose a video file');if(input)input.value='';return false}
+    if(f.size>MAX){toast('That video is '+mb(f.size)+'. The limit is 150 MB.');if(input)input.value='';return false}
+    return true;
+  }
   var PLAY='<span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>';
   var CAL='<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
   var PIN='<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6 15 4 12 4 9a8 8 0 0 1 16 0c0 3-2 6-8 13zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>';
@@ -64,7 +73,7 @@
     var f=videos.filter(function(v){return v.featured})[0]||videos.filter(function(v){return v.fav})[0]||videos[0];
     if(!f){$('featured').innerHTML='<h3>Featured Video</h3><p class="hint">Add a video to feature it here.</p>';return}
     var yr=f.date.slice(0,4);
-    $('featured').innerHTML='<h3>Featured Video</h3><button type="button" class="f-thumb" data-open="'+f.id+'" aria-label="Play '+esc(f.title)+'">'+FU.art(scene(f))+PLAY+'</button>'
+    $('featured').innerHTML='<h3>Featured Video</h3><button type="button" class="f-thumb" data-open="'+f.id+'" aria-label="Play '+esc(f.title)+'">'+thumb(f)+PLAY+'</button>'
       +'<span class="f-title">'+esc(f.title)+'</span><span class="f-sub">'+(f.place?esc(f.place)+' ':'')+yr+'</span>'+(f.by?'<span class="f-by">'+FU.byline(f)+'</span>':'')
       +'<div class="watch"><button type="button" data-open="'+f.id+'"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg> Watch Now</button></div>';
   }
@@ -99,7 +108,7 @@
       $('vgrid').innerHTML='<div class="empty"><b style="display:block;font-family:var(--font-display);font-size:18px;color:var(--ink)">No videos here yet</b>Try another category or search, or use Add Video at the top.</div>';
     }else{
       $('vgrid').innerHTML=shown.map(function(v){
-        return '<article class="vc"><button type="button" class="vc-thumb" data-open="'+v.id+'" aria-label="Play '+esc(v.title)+'">'+FU.art(scene(v))+PLAY+(v.dur?'<span class="dur">'+esc(v.dur)+'</span>':'')+'</button>'
+        return '<article class="vc"><button type="button" class="vc-thumb" data-open="'+v.id+'" aria-label="Play '+esc(v.title)+'">'+thumb(v)+PLAY+(v.dur?'<span class="dur">'+esc(v.dur)+'</span>':'')+'</button>'
           +'<div class="vc-row"><b title="'+esc(v.title)+'">'+esc(v.title)+'</b><button type="button" class="vc-heart" data-fav="'+v.id+'" aria-pressed="'+!!v.fav+'" aria-label="Favorite '+esc(v.title)+'">'+HEART+'</button></div>'
           +(v.by?'<div class="vc-by">'+FU.byline(v)+'</div>':'')+'<div class="vc-meta"><span>'+CAL+fmt(v.date)+'</span>'+(v.place?'<span>'+PIN+esc(v.place)+'</span>':'')+'<button type="button" class="vc-more" data-edit="'+v.id+'" aria-label="Edit '+esc(v.title)+'">&#8942;</button></div></article>';
       }).join('');
@@ -119,30 +128,36 @@
     paintPlayer(v);FU.open(dlg);
   }
   function paintPlayer(v){
-    var url=files[v.id],box=$('vPlayer');$('vDl').hidden=!url;
-    if(url){
-      box.innerHTML='<video controls playsinline src="'+url+'"></video>';
-      $('vNote').textContent='Playing the file you chose. It will need to be chosen again after you reload the page.';
+    var u=url(v),box=$('vPlayer');
+    if(u){
+      box.innerHTML='<video controls playsinline preload="metadata" src="'+u+'"></video>';
+      $('vNote').textContent=(v.media.name?v.media.name+' · ':'')+'Saved on our server, so it will always be here.';
       $('vFileBtn').firstChild.nodeValue='Replace video file';
     }else{
       box.innerHTML='<div class="vph">'+FU.art(scene(v))+'</div><div class="v-note">No video file is attached yet.</div>';
-      $('vNote').textContent=(v.sample?'This is a sample entry. ':'')+'Choose a video file from your device to play it here.';
+      $('vNote').textContent=(v.sample?'This is a sample entry. ':'')+'Choose a video file (up to 150 MB) and it will be saved here for good.';
       $('vFileBtn').firstChild.nodeValue='Choose video file';
     }
+    $('vFileBtn').hidden=!FU.canEdit(v);
   }
   dlg.addEventListener('close',function(){var vid=$('vPlayer').querySelector('video');if(vid)vid.pause()});
-  $('vDl').addEventListener('click',function(){var v=byId(openId);if(v&&files[openId])FU.download(files[openId],v.title,'mp4')});
   $('vClose').addEventListener('click',function(){FU.close(dlg)});
   $('vFile').addEventListener('change',function(){
-    var f=this.files&&this.files[0];if(!f)return;
-    if(!/^video\//.test(f.type)){toast('Please choose a video file');return}
-    if(files[openId])URL.revokeObjectURL(files[openId]);
-    files[openId]=URL.createObjectURL(f);paintPlayer(byId(openId));this.value='';
+    var input=this,f=input.files&&input.files[0],id=openId,vid=byId(id);
+    if(!pickOk(f,input)||!vid)return;
+    if(!FU.canEdit(vid)){FU.denied(vid);input.value='';return}
+    var lab=$('vFileBtn').firstChild,orig=lab.nodeValue;
+    input.disabled=true;lab.nodeValue='Uploading 0%';
+    FUAPI.upload(f,function(p){lab.nodeValue='Uploading '+p+'%'}).then(function(m){
+      var old=vid.media&&vid.media.id;vid.media=m;
+      save();FUAPI.removeMedia(old);toast('Video saved');
+      if(openId===id)paintPlayer(vid);render();
+    }).catch(function(e){lab.nodeValue=orig;toast(e.message)}).then(function(){input.disabled=false;input.value=''});
   });
   $('vDel').addEventListener('click',function(){
     if(!FU.canEdit(byId(openId))){FU.denied(byId(openId));return}
     if(!delArmed){delArmed=true;this.textContent='Click again to delete';return}
-    videos=videos.filter(function(v){return v.id!==openId});save();FU.close(dlg);render();toast('Video deleted');
+    var gone=byId(openId);videos=videos.filter(function(v){return v.id!==openId});save();if(gone&&gone.media)FUAPI.removeMedia(gone.media.id);FU.close(dlg);render();toast('Video deleted');
   });
   $('vEdit').addEventListener('click',function(){var id=openId;FU.close(dlg);openForm(id)});
 
@@ -157,27 +172,37 @@
     $('vfName').value=v?v.title:'';$('vfCat').value=v?v.cat:(state.cat==='all'?'dates':state.cat);
     $('vfDate').value=v?v.date:new Date().toISOString().slice(0,10);$('vfPlace').value=v?(v.place||''):'';$('vfDur').value=v?(v.dur||''):'';
     $('vfFeat').checked=!!(v&&v.featured);$('vfFile').value='';
+    $('vfHint').textContent=v&&v.media?'A video is already saved. Choose a new file only if you want to replace it (up to 150 MB).':'Choose a video (up to 150 MB). It is saved on our server and stays here for good.';
     FU.open(form);$('vfName').focus();
   }
   $('addBtn').addEventListener('click',function(){openForm(null)});
-  $('vfCancel').addEventListener('click',function(){FU.close(form)});
+  $('vfCancel').addEventListener('click',function(){if(saving){toast('Still uploading, please wait');return}FU.close(form)});
   $('vfFile').addEventListener('change',function(){
     var f=this.files&&this.files[0];if(!f){pending=null;return}
-    if(!/^video\//.test(f.type)){toast('Please choose a video file');this.value='';return}
+    if(!pickOk(f,this)){pending=null;return}
     pending=f;
     if(!$('vfName').value.trim())$('vfName').value=f.name.replace(/\.[^.]+$/,'').slice(0,50);
   });
   $('vf').addEventListener('submit',function(e){
     e.preventDefault();
+    if(saving)return;
     if(editing&&!FU.canEdit(byId(editing))){FU.denied(byId(editing));return}
     var rec={title:$('vfName').value.trim(),cat:$('vfCat').value,date:$('vfDate').value,place:$('vfPlace').value.trim(),dur:$('vfDur').value.trim(),featured:$('vfFeat').checked};
     if(!rec.title||!rec.date)return;
-    var id;
-    if(editing){var v=byId(editing);var changed=v.cat!==rec.cat;Object.assign(v,rec);if(changed)v.scene=cat(rec.cat)[3];id=editing;toast('Video saved')}
-    else{rec.id=Date.now();rec.scene=cat(rec.cat)[3];rec.fav=false;FU.stamp(rec);videos.push(rec);id=rec.id;toast('Video added')}
-    if(rec.featured)videos.forEach(function(v){if(v.id!==id)v.featured=false});
-    if(pending){files[id]=URL.createObjectURL(pending);pending=null}
-    save();state.page=1;FU.close(form);render();
+    var file=pending,btn=$('vfSave'),label=btn.textContent;
+    function commit(media){
+      var id,oldMedia=null;
+      if(editing){var v=byId(editing);var changed=v.cat!==rec.cat;Object.assign(v,rec);if(changed)v.scene=cat(rec.cat)[3];id=editing;toast('Video saved');
+        if(media){oldMedia=v.media&&v.media.id;v.media=media}}
+      else{rec.id=Date.now();rec.scene=cat(rec.cat)[3];rec.fav=false;if(media)rec.media=media;FU.stamp(rec);videos.push(rec);id=rec.id;toast('Video added')}
+      if(rec.featured)videos.forEach(function(v){if(v.id!==id)v.featured=false});
+      pending=null;save();FUAPI.removeMedia(oldMedia);state.page=1;FU.close(form);render();
+    }
+    if(!file){commit(null);return}
+    saving=true;btn.disabled=true;btn.textContent='Uploading 0%';
+    FUAPI.upload(file,function(p){btn.textContent='Uploading '+p+'%'}).then(commit)
+      .catch(function(err){toast(err.message)})
+      .then(function(){saving=false;btn.disabled=false;btn.textContent=label});
   });
 
   /* Page controls */

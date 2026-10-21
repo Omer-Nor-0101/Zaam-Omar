@@ -361,3 +361,36 @@
 :where(.pgp) .pub-item b{font-weight:600;overflow-wrap:anywhere}
 :where(.pgp) .pub-item small{color:var(--muted,#8a6a78);font-size:12px}
 :where(.pgp) .pub-k{align-self:flex-start;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:999px;background:#ffe3ec;color:#a3234f}
+
+:where(.pgp) .vc-thumb>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+:where(.pgp) .f-thumb>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+
+/* Real map (Leaflet) */
+:where(.pgp) .map{z-index:0;min-height:320px}
+:where(.pgp) .map.leaflet-container{font-family:inherit;background:#e9e1e4}
+:where(.pgp) .map .leaflet-pane,:where(.pgp) .map .leaflet-top,:where(.pgp) .map .leaflet-bottom{z-index:auto}
+:where(.pgp) .map .leaflet-control{z-index:5}
+.lpin{background:none;border:0;color:var(--pink);filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
+.lpin.sel{color:#ff3d7f}
+.lpin svg{width:100%;height:100%;display:block}
+:where(.pgp) .map.placing,:where(.pgp) .map.placing.leaflet-container{cursor:crosshair}
+:where(.pgp) .map-off{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--muted);font-size:14px}
+:where(.pgp) .detail .addr{font-size:12px;color:var(--muted);margin:6px 0}
+:where(.pgp) .detail .addr.warn{color:#c2410c}
+:where(.pgp) .detail .btn-link{display:inline-block;padding:8px 14px;border-radius:10px;background:var(--pink);color:#fff;font-size:13px;text-decoration:none}
+:where(.pgp) .find-row{display:flex;gap:8px;margin-top:6px}
+:where(.pgp) .find-row input{flex:1;min-width:0}
+:where(.pgp) .find-row button{border:0;border-radius:10px;background:var(--pink);color:#fff;padding:0 14px;font-size:13px;cursor:pointer}
+:where(.pgp) .find-row button:disabled{opacity:.6}
+:where(.pgp) .find-res{list-style:none;margin:8px 0 0;padding:0;border:1px solid var(--line);border-radius:12px;max-height:200px;overflow-y:auto;background:var(--surface)}
+:where(.pgp) .find-res[hidden]{display:none}
+:where(.pgp) .find-res button{display:block;width:100%;text-align:left;background:none;border:0;padding:9px 12px;cursor:pointer}
+:where(.pgp) .find-res button:hover{background:var(--pink-soft)}
+:where(.pgp) .find-res b{display:block;font-size:13px}
+:where(.pgp) .find-res small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
+:where(.pgp) .find-res .none{padding:10px 12px;font-size:12.5px;color:var(--muted)}
+:where(.pgp) #pfLoc{margin:8px 0 0;font-size:12px}
+:where(.pgp) #pfLoc.ok{color:#1f9a52}
+:where(.pgp) .find-tools{display:flex;gap:16px;margin-top:6px}
+:where(.pgp) .link-btn{background:none;border:0;padding:0;color:var(--pink-text);font-size:12.5px;text-decoration:underline;cursor:pointer}
+:where(.pgp) [hidden]{display:none!important}

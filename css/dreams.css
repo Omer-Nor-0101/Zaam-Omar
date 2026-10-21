@@ -48,3 +48,12 @@
 }
 @media (min-width:1600px){:where(#dreams) .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+:where(#dreams) .card .scene img,:where(#dreams) .card .scene video,:where(#dreams) .next .thumb img,:where(#dreams) .next .thumb video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+:where(#dreams) .card .vbadge{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:1;border:1.5px solid rgba(255,255,255,.8)}
+:where(#dreams) .media-field{display:flex;flex-direction:column;gap:8px;font-size:13px}
+:where(#dreams) .media-field em{font-style:normal;opacity:.7;font-size:12px}
+:where(#dreams) .media-prev{border-radius:12px;overflow:hidden;background:#000;max-height:220px}
+:where(#dreams) .media-prev img,:where(#dreams) .media-prev video{display:block;width:100%;max-height:220px;object-fit:contain}
+:where(#dreams) .media-field .hint{margin:0;font-size:12px;opacity:.75}
+:where(#dreams) .link-btn{align-self:flex-start;background:none;border:0;padding:0;color:var(--pink-text);font-size:12.5px;text-decoration:underline;cursor:pointer}

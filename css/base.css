@@ -1,4 +1,4 @@
-/* Forever Us - shared styles: theme tokens, hero, nav, sheet, panels, banner, dialog, toast. */
+/* Omar & Zaam - shared styles: theme tokens, hero, nav, sheet, panels, banner, dialog, toast. */
 /* Layout concept: dark twilight hero with nav on top, light rounded sheet overlapping it, content beside a sidebar, closing quote banner. */
 :root{
   --wrap:1760px; --gutter:clamp(16px,3.2vw,56px);
