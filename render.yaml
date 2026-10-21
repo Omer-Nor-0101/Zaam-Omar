@@ -11,9 +11,15 @@ services:
         value: 20
       - key: JWT_SECRET
         generateValue: true
-      - key: RESET_CODE
-        generateValue: true
       - key: MAX_USERS
         value: 2
-      - key: DATABASE_URL
+      - key: TIDB_HOST
         sync: false
+      - key: TIDB_PORT
+        value: 4000
+      - key: TIDB_USER
+        sync: false
+      - key: TIDB_PASSWORD
+        sync: false
+      - key: TIDB_DATABASE
+        value: test

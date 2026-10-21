@@ -24,34 +24,6 @@
   }
   FUAPI.signOut=signOutLocal;
 
-  /* ---------- Photos & videos: uploaded to the server and kept in the database (limit 150 MB each) ---------- */
-  FUAPI.MAX_MEDIA=150*1024*1024;
-  FUAPI.mediaUrl=function(id){return '/api/media/'+encodeURIComponent(id)+'?t='+encodeURIComponent(tok())};
-  FUAPI.upload=function(file,onProgress){
-    return new Promise(function(resolve,reject){
-      if(file.size>FUAPI.MAX_MEDIA){reject(new Error('This file is bigger than 150 MB.'));return}
-      var x=new XMLHttpRequest();
-      x.open('PUT','/api/media');
-      x.setRequestHeader('Authorization','Bearer '+tok());
-      x.setRequestHeader('Content-Type',file.type||'application/octet-stream');
-      x.setRequestHeader('X-File-Name',encodeURIComponent(file.name||'file'));
-      if(x.upload&&onProgress)x.upload.onprogress=function(e){if(e.lengthComputable)onProgress(Math.round(e.loaded/e.total*100))};
-      x.onload=function(){
-        var j={};try{j=JSON.parse(x.responseText)}catch(e){}
-        if(x.status===401){signOutLocal();location.replace('login.html');return}
-        if(x.status>=200&&x.status<300)resolve({id:j.id,name:j.name,type:j.type,size:j.size});
-        else reject(new Error(j.error||'Upload failed. Please try again.'));
-      };
-      x.onerror=function(){reject(new Error('Upload failed. Check your connection and try again.'))};
-      x.onabort=function(){reject(new Error('Upload cancelled.'))};
-      x.send(file);
-    });
-  };
-  FUAPI.removeMedia=function(id){
-    if(!id)return;
-    try{fetch('/api/media/'+encodeURIComponent(id),{method:'DELETE',headers:{'Authorization':'Bearer '+tok()},keepalive:true}).catch(function(){})}catch(e){}
-  };
-
   var page=document.body&&document.body.getAttribute('data-page');
   if(page==='login')return;
 

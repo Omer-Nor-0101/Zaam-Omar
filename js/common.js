@@ -51,6 +51,18 @@
   /* ---------- Dialog helpers ---------- */
   FU.open=function(d){if(d.showModal)d.showModal();else d.setAttribute('open','')};
   FU.close=function(d){if(d.close)d.close();else d.removeAttribute('open')};
+  /* Download a picture or video (data URL or blob URL) to the device. */
+  FU.download=function(url,title,fallbackExt){
+    if(!url){FU.toast('Nothing to download yet');return}
+    fetch(url).then(function(r){return r.blob()}).then(function(b){
+      var ext=((b.type||'').split('/')[1]||fallbackExt||'bin').split(';')[0].replace('jpeg','jpg').replace('quicktime','mov').replace('x-matroska','mkv').replace('x-msvideo','avi');
+      var name=String(title||'forever-us').replace(/[\\/:*?"<>|]+/g,'').trim().replace(/\s+/g,'-').slice(0,60)||'forever-us';
+      var u=URL.createObjectURL(b),a=document.createElement('a');
+      a.href=u;a.download=name+'.'+ext;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(function(){URL.revokeObjectURL(u)},4000);
+      FU.toast('Download started');
+    }).catch(function(){FU.toast('Could not download this file')});
+  };
   FU.backdropClose=function(d){d.addEventListener('click',function(e){if(e.target===d)FU.close(d)})};
 
   /* ---------- Navigation ---------- */
@@ -58,9 +70,9 @@
   var current=document.body.getAttribute('data-page');
   var nav=$('siteNav');
   if(nav){
-    nav.innerHTML='<a class="logo" href="#home" aria-label="Omar &amp; Zaam home">'
+    nav.innerHTML='<a class="logo" href="#home" aria-label="Forever Us home">'
       +'<svg width="38" height="34" viewBox="0 0 24 22" fill="none" stroke="#ff6f9f" stroke-width="1.6"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg>'
-      +'<span><b>Omar &amp; Zaam</b><small>Our Love Story <span style="color:#ff6f9f">&#9829;</span></small></span></a>'
+      +'<span><b>Forever Us</b><small>Our Love Story <span style="color:#ff6f9f">&#9829;</span></small></span></a>'
       +'<div class="nav-links">'+PAGES.map(function(p){return '<a href="'+p[2]+'"'+(p[0]===current?' aria-current="page"':'')+'>'+p[1]+'</a>'}).join('')+'</div>'
       +'<button class="login" id="login" type="button"></button>'
       +'<button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>';
@@ -302,7 +314,7 @@
     }).join('');
     foot.innerHTML='<div class="sf-marq" aria-hidden="true"><div class="sf-track">'+mq+mq+'</div></div>'
       +'<div class="sf-main">'
-        +'<div class="sf-brand"><div class="sf-logo"><svg width="40" height="36" viewBox="0 0 24 22" fill="none" stroke="#ff6f9f" stroke-width="1.6" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg><b>Omar &amp; Zaam</b></div>'
+        +'<div class="sf-brand"><div class="sf-logo"><svg width="40" height="36" viewBox="0 0 24 22" fill="none" stroke="#ff6f9f" stroke-width="1.6" aria-hidden="true"><path d="M12 20.500C5 15 2 11.500 2 7.800 2 5 4.200 3 6.800 3c2 0 3.700 1.100 5.200 3 1.500-1.900 3.200-3 5.200-3C19.800 3 22 5 22 7.800c0 3.700-3 7.200-10 12.700z"/></svg><b>Forever Us</b></div>'
           +'<p>Every moment with you is my favorite memory. Our photos, videos, places and letters, all in one little world.</p>'
           +(t?'<span class="sf-days"><b>'+t.total.toLocaleString()+'</b> days of love</span>':'<a class="sf-days" href="'+PAGES[0][2]+'#top">Set the day our story began</a>')+'</div>'
         +'<nav class="sf-col" aria-label="Pages"><h4>Explore</h4>'+links+'</nav>'
@@ -310,7 +322,7 @@
           +'<a href="'+PAGES[0][2]+'#magicSec">Love note of the day</a><a href="'+PAGES[0][2]+'#pubSec">Latest published</a><a href="'+PAGES[0][2]+'#rcar">Recent memories</a><a href="#sgrid">Special days</a><a href="#pgrid">Our photos</a></nav>'
         +'<div class="sf-col"><h4>Follow us</h4><div class="sf-soc">'+ico+'</div><button type="button" class="sf-edit" id="sfEditSoc">Edit social links</button></div>'
       +'</div>'
-      +'<div class="sf-bar"><p>Made with <b>&#9829;</b> for Omar &amp; Zaam. Everything you add is saved in this browser only.</p><button type="button" class="sf-top" id="sfTop" aria-label="Back to top">Back to top <span aria-hidden="true">&#8593;</span></button></div>';
+      +'<div class="sf-bar"><p>Made with <b>&#9829;</b> for Forever Us. Everything you add is saved in this browser only.</p><button type="button" class="sf-top" id="sfTop" aria-label="Back to top">Back to top <span aria-hidden="true">&#8593;</span></button></div>';
   }
   renderFoot();document.body.appendChild(foot);
 

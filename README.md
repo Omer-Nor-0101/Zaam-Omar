@@ -1,4 +1,4 @@
-# Omar & Zaam
+# Forever Us
 
 A one-page love-story website: Home, Photos, Videos, Our Story, Places, Future Dreams, Letters and Surprises are all sections of `index.html`, joined by one scroll. The top bar always stays on screen and its links jump to each section. Plain HTML, CSS and JavaScript, no build step.
 
@@ -10,7 +10,7 @@ The old addresses (`photos.html`, `videos.html`, ...) are tiny redirects to the 
 | Photos | `photos.html` | Categories, search, filter, sort, pagination, lightbox, add your own photos |
 | Videos | `videos.html` | Categories, search, filter, sort, pagination, featured video, player dialog |
 | Our Story | `story.html` | Two-sided timeline with icons, filter, add and edit milestones |
-| Places | `places.html` | Real world map (OpenStreetMap), search for real places, filters, detail panel |
+| Places | `places.html` | Pin map, filters, detail panel |
 | Future Dreams | `dreams.html` | Bucket list with filters, progress and next trip |
 | Letters | `letters.html` | Love letters with search, categories and a reading view |
 
@@ -30,7 +30,7 @@ Open `index.html` in a browser; the nav links the pages together.
 - Fonts (Playfair Display, Dancing Script, Poppins) load from Google Fonts and fall back to system fonts offline.
 - Everything you add is saved in the browser (localStorage), separately on each device.
 - Login only saves a display name on this device. It is a greeting, not a secure account.
-- Photos are resized to about 1000px before saving. Video files (up to 150 MB) are uploaded to the server and kept in the database, so they never disappear.
+- Photos are resized to about 1000px before saving. Video files are too large to save, so a chosen video plays until the page is reloaded; its title and details are kept.
 - Entries marked "Example" or "Sample" are placeholders. Edit or delete them.
 - Set your real start date with "Set our date" on Home or Our Story. Until then the counters use an example date.
 
@@ -94,19 +94,3 @@ Notes: passwords are hashed with bcrypt on the server. Use HTTPS when you put it
 4. Open the `onrender.com` link and register the two accounts right away (only `MAX_USERS` accounts can register).
 
 When `DATABASE_URL` is set the server uses Postgres; without it, it uses SQL Server as described above.
-
-
-## Videos, photos and files (up to 150 MB)
-
-Videos (Videos section) and the photo or video of a dream (Future Dreams) are uploaded to the server and stored in the database (tables `Media` and `MediaChunks`), so they stay after reload and on every device. Limit: 150 MB per file. Uploads stream in 4 MB pieces, so the server does not need much memory, and videos can be skipped/seeked while playing. Free Neon gives about 0.5 GB in total, so a few big videos will fill it; upgrade the database or delete old files when it is full.
-
-## Places are real
-
-The Places section is a real map (OpenStreetMap through Leaflet). Press Add Place, search for the real cafe, beach or address (OpenStreetMap search), use "Use my location", or tap the exact spot on the map. A place cannot be saved without a real location. The old invented example places were removed; places saved before this update that have no real location show "needs a real location" until you press Edit place and search for them.
-
-## Reset password
-
-On the login page press "Forgot password?".
-- **Secret code (works with no email):** set `RESET_CODE` (8+ characters) in `server/.env` (on Render it is generated for you: Environment tab). Press "I have a reset code", type your username/Gmail, the code and a new password.
-- **Email link:** fill the `SMTP_*` settings in `server/.env` (Gmail needs an App password) and run `npm install` once. The link is valid for 30 minutes and only works once.
-After changing `.env`, restart the server. Run `npm install` after this update (it adds `nodemailer`).

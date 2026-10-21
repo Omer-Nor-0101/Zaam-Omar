@@ -113,7 +113,7 @@
     var by=$('lbBy');if(!by){by=document.createElement('div');by.id='lbBy';$('lbMeta').insertAdjacentElement('afterend',by)}
     by.innerHTML=FU.byline(p);var can=FU.canEdit(p);$('lbDel').hidden=!can;$('lbAlbum').disabled=$('lbPlace').disabled=!can;
     $('lbAlbum').value=p.album;$('lbPlace').value=p.place||'';
-    $('lbFav').setAttribute('aria-pressed',p.fav);$('lbFav').querySelector('span').textContent=p.fav?'Favorited':'Favorite';
+    $('lbDl').hidden=!p.src;$('lbFav').setAttribute('aria-pressed',p.fav);$('lbFav').querySelector('span').textContent=p.fav?'Favorited':'Favorite';
   }
   function step(dir){
     var l=visible();var i=l.map(function(p){return p.id}).indexOf(openId);if(i<0||!l.length)return;
@@ -128,6 +128,7 @@
     if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1);
   });
   lb.addEventListener('close',render);
+  $('lbDl').addEventListener('click',function(){var p=byId(openId);if(p&&p.src)FU.download(p.src,p.title,'jpg')});
   $('lbFav').addEventListener('click',function(){var p=byId(openId);if(!p)return;p.fav=!p.fav;save();show(openId)});
   $('lbAlbum').addEventListener('change',function(){var p=byId(openId);if(!p)return;p.album=this.value;save()});
   $('lbPlace').addEventListener('change',function(){var p=byId(openId);if(!p)return;p.place=this.value.trim();save();$('lbMeta').textContent=fmt(p.date)+(p.place?' · '+p.place:'')});

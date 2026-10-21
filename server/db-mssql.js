@@ -53,29 +53,6 @@ async function init() {
       UpdatedAt DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME(),
       UpdatedBy INT NULL REFERENCES dbo.Users(Id)
     );
-    IF OBJECT_ID('dbo.Media') IS NULL
-    CREATE TABLE dbo.Media (
-      Id NVARCHAR(40) NOT NULL PRIMARY KEY,
-      OwnerId INT NULL,
-      Name NVARCHAR(200) NOT NULL,
-      Type NVARCHAR(100) NOT NULL,
-      Size BIGINT NOT NULL DEFAULT 0,
-      Created DATETIME2(3) NOT NULL DEFAULT SYSUTCDATETIME()
-    );
-    IF OBJECT_ID('dbo.MediaChunks') IS NULL
-    CREATE TABLE dbo.MediaChunks (
-      MediaId NVARCHAR(40) NOT NULL REFERENCES dbo.Media(Id) ON DELETE CASCADE,
-      Idx INT NOT NULL,
-      Data VARBINARY(MAX) NOT NULL,
-      PRIMARY KEY (MediaId, Idx)
-    );
-    IF OBJECT_ID('dbo.PasswordResets') IS NULL
-    CREATE TABLE dbo.PasswordResets (
-      TokenHash NVARCHAR(64) NOT NULL PRIMARY KEY,
-      UserId INT NOT NULL REFERENCES dbo.Users(Id) ON DELETE CASCADE,
-      Expires DATETIME2(3) NOT NULL
-    );
-    DELETE FROM dbo.Media WHERE Size=0;
   `);
 }
 
@@ -160,60 +137,9 @@ async function lastChange() {
   return t ? new Date(t).toISOString() : '';
 }
 
-
-/* ---- Media: files are stored in the database in 4 MB chunks ---- */
-async function mediaCreate(id, ownerId, name, type) {
-  await pool.request().input('i', sql.NVarChar(40), id).input('o', sql.Int, ownerId)
-    .input('n', sql.NVarChar(200), name).input('t', sql.NVarChar(100), type)
-    .query('INSERT INTO dbo.Media (Id,OwnerId,Name,Type) VALUES (@i,@o,@n,@t)');
-}
-async function mediaChunk(id, idx, buf) {
-  await pool.request().input('i', sql.NVarChar(40), id).input('x', sql.Int, idx)
-    .input('d', sql.VarBinary(sql.MAX), buf)
-    .query('INSERT INTO dbo.MediaChunks (MediaId,Idx,Data) VALUES (@i,@x,@d)');
-}
-async function mediaFinish(id, size) {
-  await pool.request().input('i', sql.NVarChar(40), id).input('s', sql.BigInt, size)
-    .query('UPDATE dbo.Media SET Size=@s WHERE Id=@i');
-}
-async function mediaMeta(id) {
-  const r = (await pool.request().input('i', sql.NVarChar(40), id)
-    .query('SELECT Id,OwnerId,Name,Type,Size FROM dbo.Media WHERE Id=@i AND Size>0')).recordset[0];
-  return r ? { id: r.Id, ownerId: r.OwnerId, name: r.Name, type: r.Type, size: Number(r.Size) } : null;
-}
-async function mediaGetChunk(id, idx) {
-  const r = (await pool.request().input('i', sql.NVarChar(40), id).input('x', sql.Int, idx)
-    .query('SELECT Data FROM dbo.MediaChunks WHERE MediaId=@i AND Idx=@x')).recordset[0];
-  return r ? r.Data : null;
-}
-async function mediaDelete(id) {
-  await pool.request().input('i', sql.NVarChar(40), id).query('DELETE FROM dbo.Media WHERE Id=@i');
-}
-
-/* ---- Password reset ---- */
-async function setPassword(userId, hash) {
-  await pool.request().input('u', sql.Int, userId).input('h', sql.NVarChar(100), hash)
-    .query('UPDATE dbo.Users SET PasswordHash=@h WHERE Id=@u');
-}
-async function createReset(userId, tokenHash, minutes) {
-  await pool.request().input('u', sql.Int, userId).query('DELETE FROM dbo.PasswordResets WHERE UserId=@u OR Expires<SYSUTCDATETIME()');
-  await pool.request().input('t', sql.NVarChar(64), tokenHash).input('u', sql.Int, userId).input('m', sql.Int, minutes)
-    .query('INSERT INTO dbo.PasswordResets (TokenHash,UserId,Expires) VALUES (@t,@u,DATEADD(MINUTE,@m,SYSUTCDATETIME()))');
-}
-async function findReset(tokenHash) {
-  const r = (await pool.request().input('t', sql.NVarChar(64), tokenHash)
-    .query('SELECT UserId FROM dbo.PasswordResets WHERE TokenHash=@t AND Expires>SYSUTCDATETIME()')).recordset[0];
-  return r ? r.UserId : null;
-}
-async function deleteResets(userId) {
-  await pool.request().input('u', sql.Int, userId).query('DELETE FROM dbo.PasswordResets WHERE UserId=@u');
-}
-
 async function ping() { await pool.request().query('SELECT 1 AS ok'); }
 
 module.exports = {
   init, pub, countUsers, findUserByLogin, findUserById, userExists, createUser,
-  listUsers, renameUser, getAllData, setData, deleteData, lastChange, ping,
-  mediaCreate, mediaChunk, mediaFinish, mediaMeta, mediaGetChunk, mediaDelete,
-  setPassword, createReset, findReset, deleteResets
+  listUsers, renameUser, getAllData, setData, deleteData, lastChange, ping
 };
